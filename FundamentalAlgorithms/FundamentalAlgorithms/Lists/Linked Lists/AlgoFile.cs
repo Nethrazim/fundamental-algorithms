@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace FundamentalAlgorithms.Lists.Linked_Lists
 {
-    public class AlgoFile1
+    public static class AlgoFile
     {
         public static int calculateLength<T>(T[] values)
         {
@@ -129,6 +129,79 @@ namespace FundamentalAlgorithms.Lists.Linked_Lists
             node.Next = tail;
 
             return head;
+        }
+
+        public static Node<T> insertHead<T>(T[] values, Node<T> newHead)
+        {
+            Node<T> node = Samples.populateALinkedList(values);
+            newHead.Next = node;
+            return newHead;
+        }
+
+        public static Node<T> insertAtSpecificPosition<T>(T[] values, Node<T> newNode, int position)
+        {
+            Node<T> node = Samples.populateALinkedList(values);
+            Node<T> head = node;
+            Node<T> previous = null;
+
+            int pos = 1;
+
+            while (node != null) {
+                if (pos == position) {
+                    if (pos == 1)
+                    {
+                        newNode.Next = node;
+                        return newNode;
+                    }
+                    else
+                    {
+                        previous.Next = newNode;
+                        newNode.Next = node;
+                    }
+                }
+
+                previous = node;
+                node = node.Next;
+                pos++;
+            }
+
+            return head;
+        }
+
+        public static Node<T> searchForNode<T>(T[] values, T value)
+        {
+            Node<T> node = Samples.populateALinkedList(values);
+            if (node.Value.Equals(value)) {
+                return node;
+            }
+
+            do
+            {
+                node = node.Next;
+                if (node.Value.Equals(value))
+                {
+                    return node;
+                }
+            } while (node.Next != null);
+
+            return null;
+        }
+
+        public static void printLinkedListFromHeadToTail<T>(Node<T> node)
+        {
+            if (node == null)
+                return;
+
+            Console.Write("Node " + node.Value + " ");
+            printLinkedListFromHeadToTail(node.Next);
+        }
+
+        public static void printLinkedListFromTailToHead<T>(Node<T> node)
+        {
+            if (node == null)
+                return;
+            printLinkedListFromTailToHead(node.Next);
+            Console.WriteLine("Node " + node.Value + "");
         }
     }
 }

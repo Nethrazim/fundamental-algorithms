@@ -1,5 +1,6 @@
 ﻿using FundamentalAlgorithms.Lists.Linked_Lists;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FundamentalAlgorithms.Lists.Linked_Lists
 {
-    public class Node<T>
+    public class Node<T> : IEnumerable<Node<T>>
     {
         public T Value { get; set; }
 
@@ -18,6 +19,23 @@ namespace FundamentalAlgorithms.Lists.Linked_Lists
         }
 
         public Node() { }
+
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+
+        public IEnumerator<Node<T>> GetEnumerator()
+        {
+            Node<T> current = this;
+            while (current != null)
+            {
+                yield return current;
+                current = current.Next;
+            }
+        }
+
     }
 
 
